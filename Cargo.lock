@@ -3,6 +3,7 @@ name = "blink"
 version = "0.1.0"
 dependencies = [
  "arduino 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "avr_delay 0.1.0 (git+https://github.com/pusherofbrooms/avr-delay)",
 ]
 
 [[package]]
@@ -10,5 +11,11 @@ name = "arduino"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
+[[package]]
+name = "avr_delay"
+version = "0.1.0"
+source = "git+https://github.com/pusherofbrooms/avr-delay#c4e8a4a1828bab52134976b174c0c2dfe5c27178"
+
 [metadata]
 "checksum arduino 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "db5cbf8c970564dcc5e184f1cddb477fda62a55adba8a88301336cea87eb4a83"
+"checksum avr_delay 0.1.0 (git+https://github.com/pusherofbrooms/avr-delay)" = "<none>"

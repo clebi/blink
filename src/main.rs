@@ -4,9 +4,14 @@
 #![no_main]
 
 extern crate arduino;
+extern crate avr_delay;
 
 use arduino::{DDRB, PORTB, PORTB5};
 use core::ptr::{write_volatile, read_volatile};
+use avr_delay::delay_ms;
+
+// Blinking delay in ms
+const LED_BLINK_DELAY: u32 = 1000;
 
 #[no_mangle]
 pub extern fn main() {
@@ -17,14 +22,7 @@ pub extern fn main() {
         // Set the builtin LED pin to high
         unsafe { write_volatile(PORTB, read_volatile(PORTB) ^ PORTB5) }
 
-        small_delay();
-    }
-}
-
-/// A small busy loop.
-fn small_delay() {
-    for _ in 0..800000 {
-        unsafe { asm!("" :::: "volatile")}
+        delay_ms(LED_BLINK_DELAY);
     }
 }
 
