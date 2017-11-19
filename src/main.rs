@@ -5,8 +5,8 @@
 
 extern crate arduino;
 
-use arduino::{DDRB, PORTB};
-use core::ptr::write_volatile;
+use arduino::{DDRB, PORTB, PORTB5};
+use core::ptr::{write_volatile, read_volatile};
 
 #[no_mangle]
 pub extern fn main() {
@@ -14,13 +14,8 @@ pub extern fn main() {
     unsafe { write_volatile(DDRB, 0xFF) }
 
     loop {
-        // Set all pins on PORTB to high.
-        unsafe { write_volatile(PORTB, 0xFF) }
-
-        small_delay();
-
-        // Set all pins on PORTB to low.
-        unsafe { write_volatile(PORTB, 0x00) }
+        // Set the builtin LED pin to high
+        unsafe { write_volatile(PORTB, read_volatile(PORTB) ^ PORTB5) }
 
         small_delay();
     }
@@ -28,7 +23,7 @@ pub extern fn main() {
 
 /// A small busy loop.
 fn small_delay() {
-    for _ in 0..400000 {
+    for _ in 0..800000 {
         unsafe { asm!("" :::: "volatile")}
     }
 }
@@ -46,4 +41,3 @@ pub mod std {
         loop { }
     }
 }
-
